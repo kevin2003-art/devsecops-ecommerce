@@ -1,0 +1,16 @@
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">ShopSecure</a>
+    <div class="nav-links">
+      <a href="/">Products</a>
+      <a href="/cart">Cart (<%= cart.length %>)</a>
+      <% if (user) { %>
+        <span class="nav-user">Hi, <%= user.name %></span>
+        <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Register</a>
+      <% } %>
+    </div>
+  </div>
+</nav>

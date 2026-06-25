@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+  <div class="container center-content">
+    <div class="auth-box">
+      <h2>Create Account</h2>
+      <% if (error) { %><p class="error-msg"><%= error %></p><% } %>
+      <form method="POST" action="/auth/register">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password (min 8 chars)" minlength="8" required>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+      <p>Have an account? <a href="/auth/login">Login</a></p>
+    </div>
+  </div>
+  <%- include('partials/footer') %>
+</body>
+</html>

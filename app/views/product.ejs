@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+  <div class="container">
+    <a href="/" class="back-link">Back to Products</a>
+    <div class="product-detail">
+      <div class="product-img-large"><%= product.category[0] %></div>
+      <div class="product-detail-info">
+        <h1><%= product.name %></h1>
+        <p class="category"><%= product.category %></p>
+        <p class="desc"><%= product.description %></p>
+        <p class="price-large">Rs.<%= product.price.toLocaleString() %></p>
+        <form method="POST" action="/cart/add">
+          <input type="hidden" name="productId" value="<%= product.id %>">
+          <label>Qty: <input type="number" name="qty" value="1" min="1" max="10" class="qty-input"></label>
+          <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <%- include('partials/footer') %>
+</body>
+</html>

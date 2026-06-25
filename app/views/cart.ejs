@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+  <div class="container">
+    <h1 class="page-title">Your Cart</h1>
+    <% if (cart.length === 0) { %>
+      <p class="no-results">Your cart is empty. <a href="/">Shop now</a></p>
+    <% } else { %>
+      <table class="cart-table">
+        <thead>
+          <tr><th>Product</th><th>Price</th><th>Qty</th><th>Subtotal</th><th></th></tr>
+        </thead>
+        <tbody>
+          <% cart.forEach(item => { %>
+          <tr>
+            <td><%= item.name %></td>
+            <td>Rs.<%= item.price.toLocaleString() %></td>
+            <td><%= item.qty %></td>
+            <td>Rs.<%= (item.price * item.qty).toLocaleString() %></td>
+            <td>
+              <form method="POST" action="/cart/remove">
+                <input type="hidden" name="productId" value="<%= item.id %>">
+                <button type="submit" class="btn btn-danger">Remove</button>
+              </form>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <div class="cart-total">
+        <strong>Total: Rs.<%= total.toLocaleString() %></strong>
+        <form method="POST" action="/cart/checkout">
+          <button type="submit" class="btn btn-primary">Checkout</button>
+        </form>
+      </div>
+    <% } %>
+  </div>
+  <%- include('partials/footer') %>
+</body>
+</html>
