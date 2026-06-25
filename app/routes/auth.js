@@ -5,27 +5,27 @@ const router = express.Router();
 const users = [];
 
 router.get('/login', (req, res) => {
-  res.render('login', { title: 'Login', error: null, user: null });
+  res.render('login', { title: 'Login', error: null, user: null, cart: req.session.cart || [] });
 });
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   const user = users.find(u => u.email === email);
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    return res.render('login', { title: 'Login', error: 'Invalid email or password.', user: null });
+    return res.render('login', { title: 'Login', error: 'Invalid email or password.', user: null, cart: req.session.cart || [] });
   }
   req.session.user = { name: user.name, email: user.email };
   res.redirect('/');
 });
 
 router.get('/register', (req, res) => {
-  res.render('register', { title: 'Register', error: null, user: null });
+  res.render('register', { title: 'Register', error: null, user: null, cart: req.session.cart || [] });
 });
 
 router.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
   if (users.find(u => u.email === email)) {
-    return res.render('register', { title: 'Register', error: 'Email already registered.', user: null });
+    return res.render('register', { title: 'Register', error: 'Email already registered.', user: null, cart: req.session.cart || [] });
   }
   const hashed = await bcrypt.hash(password, 10);
   users.push({ name, email, password: hashed });
